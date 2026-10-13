@@ -170,6 +170,8 @@
   .social-name { display: block; font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 15px; line-height: 1.35; color: var(--text); }
   .social-sub { display: block; font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--accent-dark); margin-top: 2px; }
   .social .chev svg { transform: rotate(-90deg); }
+  .copy { display: inline-block; vertical-align: middle; margin-left: 8px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 11px; letter-spacing: .06em; color: var(--accent-dark); cursor: pointer; }
+  .copy.done { background: var(--accent-soft); }
 
   footer {
     margin-top: 36px; text-align: center;
@@ -200,7 +202,7 @@
 
   <div class="section-title">Подписывайтесь</div>
   <a class="social" href="https://t.me/LebedevaNum" target="_blank" rel="noopener" data-tg="1"><span class="social-text"><span class="social-name">О жизни в цифрах</span><span class="social-sub">мой Telegram-канал</span></span><span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.5 6 8.5l4-4"/></svg></span></a>
-  <a class="social" href="https://instagram.com/nastynum" target="_blank" rel="noopener"><span class="social-text"><span class="social-name">@nastynum</span><span class="social-sub">Instagram</span></span><span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.5 6 8.5l4-4"/></svg></span></a>
+  <a class="social" href="https://instagram.com/nastynum" target="_blank" rel="noopener"><span class="social-text"><span class="social-name">@nastynum<span class="copy" role="button" tabindex="0" data-copy="@nastynum">копировать</span></span><span class="social-sub">Instagram</span></span><span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.5 6 8.5l4-4"/></svg></span></a>
 
   <footer>Анастасия Лебедева · цифровой психолог</footer>
 </div>
@@ -349,10 +351,42 @@
     }
   }
 
+  function copyText(text, el) {
+    function done() {
+      el.textContent = 'скопировано';
+      el.classList.add('done');
+      setTimeout(function () { el.textContent = 'копировать'; el.classList.remove('done'); }, 1500);
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(ta);
+      done();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  }
+
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('.btn');
     if (btn) {
       openChat(ITEMS[+btn.dataset.i].title);
+      return;
+    }
+    var cp = e.target.closest('.copy');
+    if (cp) {
+      e.preventDefault();
+      e.stopPropagation();
+      copyText(cp.dataset.copy, cp);
       return;
     }
     var link = e.target.closest('.social');
