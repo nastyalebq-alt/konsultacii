@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Консультации · Анастасия Лебедева</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EFE9E1;
+    --card: #F7F3EE;
+    --line: #DDD3C8;
+    --accent: #7E5F6B;
+    --accent-soft: #E6DADD;
+    --text: #332E2B;
+    --muted: #7A706A;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 28px 16px 48px; }
+
+  .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 22px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1.3;
+    margin: 0 0 18px;
+  }
+  .intro p { margin: 0 0 12px; }
+  .intro .hint { color: var(--muted); font-size: 15px; }
+
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 32px 0 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .card-head {
+    width: 100%;
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px;
+    background: none; border: 0; text-align: left; cursor: pointer;
+    color: inherit; font: inherit;
+  }
+  .card-title {
+    flex: 1;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  .card-price {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--accent);
+    margin-top: 3px;
+  }
+  .chev {
+    flex: none; width: 26px; height: 26px; border-radius: 50%;
+    border: 1px solid var(--line);
+    display: grid; place-items: center;
+    transition: transform .25s ease, background .25s ease;
+  }
+  .chev svg { width: 12px; height: 12px; stroke: var(--accent); }
+  .open > .card-head .chev { transform: rotate(180deg); background: var(--accent-soft); }
+
+  .card-body {
+    display: grid; grid-template-rows: 0fr;
+    transition: grid-template-rows .3s ease;
+  }
+  .open > .card-body { grid-template-rows: 1fr; }
+  .card-inner { overflow: hidden; }
+  .card-content { padding: 0 16px 18px; }
+  .card-content p { margin: 0 0 10px; }
+  .card-content .sub { font-style: italic; color: var(--muted); margin-top: -4px; }
+  .card-content ul { margin: 0 0 12px; padding-left: 0; list-style: none; }
+  .card-content li { position: relative; padding-left: 18px; margin-bottom: 6px; }
+  .card-content li::before {
+    content: ""; position: absolute; left: 2px; top: .7em;
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  }
+  .note { color: var(--muted); font-size: 15px; }
+  .meta {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; letter-spacing: .06em;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    padding-top: 12px; margin-top: 14px;
+  }
+  .meta b { color: var(--text); font-weight: 500; }
+
+  .btn {
+    display: block; width: 100%;
+    margin-top: 14px;
+    padding: 14px 16px;
+    border: 0; border-radius: 12px;
+    background: var(--accent); color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500; font-size: 13px;
+    letter-spacing: .14em; text-transform: uppercase;
+    cursor: pointer;
+  }
+  .btn:active { opacity: .85; }
+
+  /* вложенные сферы */
+  .spheres { margin: 4px 0 12px; }
+  .sphere {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    background: var(--paper);
+    overflow: hidden;
+  }
+  .sphere .card-head { padding: 12px 14px; }
+  .sphere .card-title { font-size: 14px; font-weight: 400; }
+  .sphere .chev { width: 22px; height: 22px; }
+  .sphere .card-content { padding: 0 14px 14px; }
+
+  footer {
+    margin-top: 36px; text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="intro">
+    <p class="eyebrow">Цифровая психология</p>
+    <h1>Привет! Я Анастасия, цифровой психолог</h1>
+    <p>В цифровую психологию я пришла со своими вопросами: почему у меня всё складывается именно так и откуда это тянется. Разбор по дате рождения многое поставил на места. Стало понятно, где мои сильные стороны, на чём я спотыкаюсь и что с этим делать.</p>
+    <p>Теперь я разбираю это с другими. Без гаданий и без «так предначертано»: дата рождения показывает ваши особенности, а что с ними делать, решаете вы.</p>
+    <p class="hint">Ниже мои консультации. Нажмите на любую, чтобы прочитать подробнее. Если откликнется, кнопка «Записаться» откроет чат со мной.</p>
+  </header>
+
+  <div class="section-title">Консультации</div>
+  <div id="list"></div>
+
+  <footer>Анастасия Лебедева · цифровой психолог</footer>
+</div>
+
+<script>
+  var TG_USERNAME = 'anastasia_lebedevas';
+
+  var ITEMS = [
+    {
+      title: 'Персональный код успеха', price: '3 000 ₽',
+      html: '<p>Базовый разбор: ваши сильные стороны, таланты и то, через что вам легче достигать целей и денег. Пять ключевых программ из даты рождения: личность, духовность, реализация, отношения, здоровье.</p>' +
+            '<p class="note">Если какая-то программа окажется в минусе, можно докупить файл с практиками под неё.</p>',
+      meta: 'PDF · готовность 3–5 дней'
+    },
+    {
+      title: 'Детская матрица', price: '5 000 ₽',
+      html: '<p>Разбор даты рождения ребёнка, от малыша до подростка: характер, темперамент, таланты и что развивать уже сейчас.</p>' +
+            '<ul><li>какие кружки и секции подойдут именно ему</li><li>как с ним лучше договариваться</li><li>каких ошибок в воспитании избегать, чтобы сохранить доверие</li><li>что в нём от мамы, а что от папы: сравнение с вашими программами</li></ul>' +
+            '<p>Для подростков добавляю профориентацию: в чём он может реализоваться и какие направления ему подходят.</p>',
+      meta: 'PDF + аудио · готовность 3–5 дней'
+    },
+    {
+      title: 'Звезда предназначения', price: '30 000 ₽',
+      html: '<p class="sub">Полный разбор даты рождения</p>' +
+            '<p>Все пять сфер: личность, род, деньги и реализация, отношения, здоровье. Плюс роковая ошибка (программа, которая создаёт повторяющиеся трудности) и миссия.</p>' +
+            '<p><b>Бонус:</b> файл с практиками, чтобы перевести программы в плюс.</p>',
+      meta: 'PDF + аудио · готовность 5–7 дней'
+    },
+    {
+      title: 'Консультация по сферам', price: '7 000 ₽ за одну сферу',
+      html: '<p>Глубокий разбор одной сферы жизни, которая сейчас волнует больше всего. Нажмите на сферу, чтобы прочитать подробнее.</p>',
+      spheres: [
+        ['Личность', 'Ваши сильные стороны, таланты, характер и то, какие установки и страхи мешают раскрыться.'],
+        ['Род', 'Какие сценарии вы повторяете за семьёй, что мешает в деньгах и отношениях по родовой линии и где сила вашего рода.'],
+        ['Деньги и реализация', 'В чём ваш потенциал, через что к вам приходят деньги и что тормозит рост дохода.'],
+        ['Отношения', 'Какой вы партнёр, каких людей притягиваете и почему, что мешает близости и доверию.'],
+        ['Здоровье и энергия', 'Где вы теряете силы, как эмоции отражаются на самочувствии и что помогает восстановиться.']
+      ],
+      after: '<p class="note">Если программа окажется в минусе, можно докупить файл с практиками под неё.</p>' +
+             '<p class="note"><i>Все пять сфер по отдельности стоят 35 000 ₽, а в «Звезде предназначения» они идут вместе с роковой ошибкой и миссией за 30 000 ₽.</i></p>',
+      meta: 'PDF + аудио · готовность 3–5 дней'
+    },
+    {
+      title: 'График энергий', price: '3 000 ₽',
+      html: '<p>Ваш личный энергетический цикл по годам: когда подъём, когда спад, а когда время перемен.</p>' +
+            '<ul><li>когда начинать новое, менять работу, принимать решения</li><li>как пройти спады без выгорания</li></ul>',
+      meta: 'PDF + аудио · готовность 3–5 дней'
+    },
+    {
+      title: 'Соляр года', price: '5 000 ₽ / с практиками 10 000 ₽',
+      html: '<p>Дорожная карта на 12 месяцев от вашего дня рождения: звезда года, прогноз по каждому месяцу и бланк «Колесо года» для планирования целей.</p>' +
+            '<p>В версии с практиками добавляются психологические и коучинговые задания на каждый месяц.</p>',
+      meta: 'PDF · готовность 5–7 дней'
+    },
+    {
+      title: 'Прогноз на месяц', price: '299 ₽',
+      html: '<p>Что ждёт в этом месяце в целом, а также в деньгах, отношениях и здоровье, с рекомендациями.</p>',
+      meta: 'PDF · готовность 1 день'
+    },
+    {
+      title: 'Прогноз на год', price: '999 ₽',
+      html: '<p>Личный прогноз на 2026 или 2027 год по месяцам и календарь с прогнозом на каждый день.</p>',
+      meta: 'PDF · готовность 1 день'
+    },
+    {
+      title: 'Совместимость с партнёром', price: '5 000 ₽',
+      html: '<p>Разбор пары по двум датам рождения.</p>' +
+            '<ul><li>зачем вы встретились и что у вашего союза получается лучше всего</li><li>из-за чего чаще всего ссоритесь</li><li>как вы влияете друг на друга в деньгах и работе</li><li>что делать, чтобы трудные моменты сближали, а не отдаляли</li></ul>',
+      meta: 'PDF + аудио · готовность 3–5 дней'
+    },
+    {
+      title: 'Чакры', price: '5 000 ₽',
+      html: '<p>Состояние семи энергетических центров по дате рождения. Каждый отвечает за свою сферу: отношения, деньги, реализацию, здоровье, творчество, интуицию и внутренний ресурс.</p>' +
+            '<ul><li>какие центры наполнены, а какие просят внимания</li><li>где ваши скрытые ресурсы</li><li>что мешает двигаться вперёд и с чего начать</li></ul>',
+      meta: 'PDF · готовность 3–5 дней'
+    },
+    {
+      title: 'Игра «Выход из матрицы»', price: 'от 10 000 ₽',
+      html: '<p>Трансформационная игра по вашей дате рождения. Вы приходите с запросом («как больше зарабатывать и меньше работать», «как выйти замуж», «на кого пойти учиться»), а уходите с пошаговым планом.</p>' +
+            '<ul><li>считаем вашу звезду и записываем запрос</li><li>все практики делаем прямо в игре, без «потом, дома»</li><li>к концу игры у каждого есть план действий</li></ul>' +
+            '<p><b>Индивидуально:</b> 15 000 ₽, 2 часа.<br><b>В группе от 2 до 5 человек:</b> 10 000 ₽ с человека, 2–3 часа.</p>',
+      meta: 'Офлайн, в кафе или студии · дата бронируется заранее'
+    },
+    {
+      title: 'Индивидуальное сопровождение 90 дней', price: '140 000 ₽',
+      html: '<p>Это не разовая консультация, а три месяца работы вместе. Разбираем, почему в жизни повторяются одни и те же ситуации, и меняем это по шагам: личность и страхи, родовые сценарии, деньги и реализация, отношения, здоровье и энергия.</p>' +
+            '<ul><li>полный разбор и цель на 3 месяца на первой встрече</li><li>встречи по согласованному графику</li><li>практики и задания между встречами</li><li>моя поддержка и обратная связь всё время</li><li>план изменений на 90 дней</li></ul>' +
+            '<p class="note">Беру тех, кто готов делать практики: я работаю на результат.</p>' +
+            '<p><b>В подарок:</b> PDF «Совместимость с партнёром» и скидка на любой прогноз после сопровождения.</p>',
+      meta: 'Онлайн'
+    },
+    {
+      title: 'Закрытый канал «Карта желаний»', price: '4 000 ₽',
+      html: '<p>Пошаговая практика, чтобы прописать свой 2027 год: желания, цели и точки роста.</p>' +
+            '<ul><li>инструкция от подготовки до финального ритуала</li><li>практики, чтобы закрыть 2026 год и отпустить лишнее</li><li>пять сфер жизни с примерами формулировок</li><li>дорожная карта на каждый месяц 2027 года</li><li>в подарок: личный прогноз на 2027 год</li></ul>' +
+            '<p class="note">Все материалы открыты сразу. Среди участниц разыграю наборы для карты желаний.</p>',
+      meta: 'Закрытый Telegram-канал',
+      button: 'Хочу в канал'
+    }
+  ];
+
+  var CHEV = '<span class="chev" aria-hidden="true"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.5 6 8.5l4-4"/></svg></span>';
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  function accordion(cls, headInner, bodyInner) {
+    return '<div class="' + cls + '">' +
+      '<button class="card-head" type="button" aria-expanded="false">' + headInner + CHEV + '</button>' +
+      '<div class="card-body"><div class="card-inner"><div class="card-content">' + bodyInner + '</div></div></div>' +
+    '</div>';
+  }
+
+  function render() {
+    var out = '';
+    ITEMS.forEach(function (it, i) {
+      var head = '<span class="card-title">' + esc(it.title) + '<span class="card-price">' + esc(it.price) + '</span></span>';
+      var body = it.html;
+      if (it.spheres) {
+        body += '<div class="spheres">' + it.spheres.map(function (s) {
+          return accordion('sphere', '<span class="card-title">' + esc(s[0]) + '</span>', '<p>' + esc(s[1]) + '</p>');
+        }).join('') + '</div>';
+      }
+      if (it.after) body += it.after;
+      body += '<div class="meta">' + esc(it.meta) + '</div>';
+      body += '<button class="btn" type="button" data-i="' + i + '">' + esc(it.button || 'Записаться') + '</button>';
+      out += accordion('card', head, body);
+    });
+    document.getElementById('list').innerHTML = out;
+  }
+
+  function signupText(title) {
+    return 'Здравствуйте, Анастасия! Хочу записаться: «' + title + '». Подскажите, пожалуйста, что для этого нужно.';
+  }
+
+  function openChat(title) {
+    var url = 'https://t.me/' + TG_USERNAME + '?text=' + encodeURIComponent(signupText(title));
+    var tg = window.Telegram && window.Telegram.WebApp;
+    if (tg && tg.initData !== undefined && tg.platform && tg.platform !== 'unknown') {
+      tg.openTelegramLink(url);
+    } else {
+      window.open(url, '_blank');
+    }
+  }
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.btn');
+    if (btn) {
+      openChat(ITEMS[+btn.dataset.i].title);
+      return;
+    }
+    var head = e.target.closest('.card-head');
+    if (head) {
+      var box = head.parentElement;
+      var open = box.classList.toggle('open');
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var tg = window.Telegram && window.Telegram.WebApp;
+      if (tg && tg.HapticFeedback) { try { tg.HapticFeedback.selectionChanged(); } catch (err) {} }
+    }
+  });
+
+  render();
+
+  (function initTelegram() {
+    var tg = window.Telegram && window.Telegram.WebApp;
+    if (!tg) return;
+    try {
+      tg.ready();
+      tg.expand();
+      if (tg.setHeaderColor) tg.setHeaderColor('#EFE9E1');
+      if (tg.setBackgroundColor) tg.setBackgroundColor('#EFE9E1');
+    } catch (err) {}
+  })();
+</script>
+</body>
+</html>
