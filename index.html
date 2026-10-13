@@ -10,13 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #EFE9E1;
-    --card: #F7F3EE;
-    --line: #DDD3C8;
+    --paper: #F3EFE9;
+    --card: #FBF9F6;
+    --line: #E3DCD3;
     --accent: #7E5F6B;
+    --accent-dark: #7E5F6B;
     --accent-soft: #E6DADD;
-    --text: #332E2B;
-    --muted: #7A706A;
+    --text: #4F4842;
+    --title: #6B645D;
+    --muted: #968D84;
+    --num: #C9C0B5;
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   html, body { margin: 0; padding: 0; }
@@ -27,27 +30,31 @@
     font-size: 16px;
     line-height: 1.55;
   }
-  .wrap { max-width: 560px; margin: 0 auto; padding: 28px 16px 48px; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 16px 48px; overflow-x: hidden; }
 
-  .eyebrow {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-    font-size: 11px;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 10px;
+  .hero { position: relative; padding: 34px 0 6px; min-height: 270px; overflow: visible; }
+  .hero-star {
+    position: absolute; right: -118px; top: -4px;
+    width: 270px; height: 270px; opacity: .38; pointer-events: none;
   }
+  .hero-dots { position: absolute; left: 0; top: 40px; display: flex; flex-direction: column; gap: 7px; }
+  .hero-dots i { display: block; width: 3px; height: 3px; border-radius: 50%; background: var(--num); }
+  .hero-text { position: relative; padding-left: 16px; }
   h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 22px;
-    letter-spacing: .08em;
+    font-family: 'Lora', Georgia, serif;
+    font-weight: 400;
+    font-size: 29px;
+    letter-spacing: .09em;
     text-transform: uppercase;
-    line-height: 1.3;
-    margin: 0 0 18px;
+    line-height: 1.15;
+    color: var(--title);
+    margin: 22px 0 0;
   }
+  .rule { width: 120px; height: 1px; background: var(--muted); opacity: .6; margin: 14px 0 10px; }
+  .tagline { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); }
+  .tagline svg { flex: none; }
   .intro p { margin: 0 0 12px; }
+  .greet { margin-top: 30px; }
   .intro .hint { color: var(--muted); font-size: 15px; }
 
   .section-title {
@@ -88,7 +95,7 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 13px;
-    color: var(--accent);
+    color: var(--accent-dark);
     margin-top: 3px;
   }
   .chev {
@@ -97,7 +104,7 @@
     display: grid; place-items: center;
     transition: transform .25s ease, background .25s ease;
   }
-  .chev svg { width: 12px; height: 12px; stroke: var(--accent); }
+  .chev svg { width: 12px; height: 12px; stroke: var(--accent-dark); }
   .open > .card-head .chev { transform: rotate(180deg); background: var(--accent-soft); }
 
   .card-body {
@@ -116,6 +123,12 @@
     width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
   }
   .note { color: var(--muted); font-size: 15px; }
+  .badge {
+    flex: none; width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid var(--num);
+    display: grid; place-items: center;
+    font-family: 'Lora', Georgia, serif; font-size: 15px; color: var(--title);
+  }
   .meta {
     font-family: 'Montserrat', sans-serif;
     font-size: 12px; letter-spacing: .06em;
@@ -163,9 +176,16 @@
 <body>
 <div class="wrap">
   <header class="intro">
-    <p class="eyebrow">Цифровая психология</p>
-    <h1>Привет! Я Анастасия, цифровой психолог</h1>
-    <p>Разбираю по дате рождения, как вы устроены: где ваша сила, где вы теряете энергию и что с этим делать.</p>
+    <div class="hero">
+      <svg class="hero-star" id="star" viewBox="0 0 1024 1024" aria-hidden="true"></svg>
+      <div class="hero-dots"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="hero-text">
+        <h1>Цифровая<br>психология</h1>
+        <div class="rule"></div>
+        <div class="tagline"><svg width="13" height="13" viewBox="0 0 20 20"><path d="M10 0C10.6 7 13 9.4 20 10C13 10.6 10.6 13 10 20C9.4 13 7 10.6 0 10C7 9.4 9.4 7 10 0Z" fill="#968D84"/></svg>понимание себя через язык цифр</div>
+      </div>
+    </div>
+    <p class="greet">Привет! Я Анастасия, цифровой психолог. Разбираю по дате рождения, как вы устроены: где ваша сила, где вы теряете энергию и что с этим делать.</p>
     <p class="hint">Нажмите на консультацию ниже, чтобы прочитать подробнее. Кнопка «Записаться» откроет чат со мной.</p>
   </header>
 
@@ -290,7 +310,7 @@
   function render() {
     var out = '';
     ITEMS.forEach(function (it, i) {
-      var head = '<span class="card-title">' + esc(it.title) + '<span class="card-price">' + esc(it.price) + '</span></span>';
+      var head = '<span class="badge">' + (i + 1) + '</span><span class="card-title">' + esc(it.title) + '<span class="card-price">' + esc(it.price) + '</span></span>';
       var body = it.html;
       if (it.spheres) {
         body += '<div class="spheres">' + it.spheres.map(function (s) {
@@ -337,14 +357,52 @@
 
   render();
 
+  (function drawStar() {
+    var svg = document.getElementById('star');
+    if (!svg) return;
+    var L = '#8A8178', P = '#EDE7DF', RING = '#B5ABA0', TXT = '#6E655D';
+    var out = '', cx = 512, cy = 512, R = 440;
+    var ring = [9,21,3,14,6,17,11,2,19,8,13,5,22,10,4,16,7,20,12,1,15,18,9,3,11,6,21,14,2,17,8,19,5,13,22,10,4,7,16,12,20,1,15,6,18,3,9,11,14,2];
+    out += '<circle cx="512" cy="512" r="440" fill="none" stroke="' + L + '" stroke-width="2"/>';
+    for (var i = 0; i < 100; i++) {
+      var a = (-90 + i * 3.6) * Math.PI / 180;
+      var x = cx + R * Math.cos(a), y = cy + R * Math.sin(a);
+      out += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (i % 5 === 0 ? 6 : 3) + '" fill="' + L + '"/>';
+      if (i % 2 === 0) {
+        var rr = R - 34, tx = cx + rr * Math.cos(a), ty = cy + rr * Math.sin(a);
+        out += '<text x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" fill="' + L + '" font-size="' + (i % 10 === 0 ? 30 : 22) + '" font-family="Lora,serif" text-anchor="middle" dominant-baseline="central">' + ring[i / 2] + '</text>';
+      }
+    }
+    var T = [512,222], Lf = [222,462], Rt = [802,462], BL = [334,782], BR = [690,782];
+    function lerp(p, q, t) { return [p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t]; }
+    function line(p, q, w) { return '<line x1="' + p[0].toFixed(1) + '" y1="' + p[1].toFixed(1) + '" x2="' + q[0].toFixed(1) + '" y2="' + q[1].toFixed(1) + '" stroke="' + L + '" stroke-width="' + w + '" stroke-linecap="round"/>'; }
+    [[T,BL],[T,BR],[Lf,Rt],[Lf,BR],[Rt,BL]].forEach(function (s) { out += line(s[0], s[1], 9); });
+    [[T,BL,BR],[Lf,Rt,BR],[Rt,Lf,BL],[BL,T,Rt],[BR,T,Lf]].forEach(function (f) {
+      var v = f[0], p1 = lerp(v, f[1], .32), p2 = lerp(v, f[2], .32), tip = lerp(v, lerp(f[1], f[2], .5), .38);
+      out += line(v, tip, 2) + line(p1, tip, 2) + line(p2, tip, 2);
+    });
+    function disk(x, y, r, n, fs, strong) {
+      return '<circle cx="' + x + '" cy="' + y + '" r="' + (r + 8) + '" fill="' + P + '" opacity=".7"/>' +
+        '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + (strong ? '#D9D1C7' : P) + '" stroke="' + RING + '" stroke-width="2"/>' +
+        '<text x="' + x + '" y="' + y + '" fill="' + TXT + '" font-size="' + fs + '" font-family="Lora,serif" font-weight="600" text-anchor="middle" dominant-baseline="central">' + n + '</text>';
+    }
+    [[T,5],[Lf,11],[Rt,7],[BL,22],[BR,9]].forEach(function (d) { out += disk(d[0][0], d[0][1], 36, d[1], 36, true); });
+    [[352,3],[432,16],[512,8],[592,12],[672,20]].forEach(function (d) { out += disk(d[0], 462, 32, d[1], 30, false); });
+    [[440,360,14],[584,360,2],[320,550,18],[452,530,6],[512,548,13],[572,530,4],[712,555,17],[362,600,21],[478,592,1],[560,600,15],[660,600,10],[346,660,19],[666,660,3],[446,736,12],[512,706,9],[574,736,7]].forEach(function (d) {
+      out += '<circle cx="' + d[0] + '" cy="' + d[1] + '" r="24" fill="' + P + '"/>' +
+        '<text x="' + d[0] + '" y="' + d[1] + '" fill="' + TXT + '" font-size="28" font-family="Lora,serif" font-weight="600" text-anchor="middle" dominant-baseline="central">' + d[2] + '</text>';
+    });
+    svg.innerHTML = out;
+  })();
+
   (function initTelegram() {
     var tg = window.Telegram && window.Telegram.WebApp;
     if (!tg) return;
     try {
       tg.ready();
       tg.expand();
-      if (tg.setHeaderColor) tg.setHeaderColor('#EFE9E1');
-      if (tg.setBackgroundColor) tg.setBackgroundColor('#EFE9E1');
+      if (tg.setHeaderColor) tg.setHeaderColor('#F3EFE9');
+      if (tg.setBackgroundColor) tg.setBackgroundColor('#F3EFE9');
     } catch (err) {}
   })();
 </script>
